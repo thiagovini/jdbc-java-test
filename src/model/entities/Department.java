@@ -24,6 +24,14 @@ public class Department implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "Department{" +
+                "id=" + id +
+                ", name='" + name +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, name);
     }
