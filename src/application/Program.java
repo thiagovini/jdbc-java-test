@@ -1,7 +1,7 @@
 package application;
 
-import db.DB;
-import model.dao.DaoFactory;
+import db.*;
+import model.dao.*;
 import model.dao.SellerDao;
 import model.entities.Seller;
 

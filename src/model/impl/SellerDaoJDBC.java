@@ -1,7 +1,6 @@
 package model.impl;
 
-import db.DB;
-import db.DbException;
+import db.*;
 import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
@@ -49,17 +48,9 @@ public class SellerDaoJDBC implements SellerDao {
             resultSet = preparedStatement.executeQuery();
             /*Check result*/
             if(resultSet.next()){
-                Department department = new Department();
-                department.setId(resultSet.getInt("DepartmentId"));
-                department.setName(resultSet.getString("DepName"));
-                Seller seller = new Seller();
-                seller.setId(resultSet.getInt("Id_Seller"));
-                seller.setName(resultSet.getString("Name"));
-                seller.setEmail(resultSet.getString("Email"));
-                seller.setBirthDate(resultSet.getDate("BirthDate"));
-                seller.setBaseSalary(resultSet.getDouble("BaseSalary"));
-                seller.setDepartment(department);
-                return seller;
+               Department department = instantiateDepartments(resultSet);
+               Seller seller = instantiateSeller(resultSet, department);
+               return seller;
             }
             return null;
 
@@ -71,6 +62,24 @@ public class SellerDaoJDBC implements SellerDao {
             DB.closeResultSet(resultSet);
             DB.closeStatement(preparedStatement);
         }
+    }
+
+    private Seller instantiateSeller(ResultSet resultSet, Department department) throws SQLException {
+        Seller seller = new Seller();
+        seller.setId(resultSet.getInt("Id_Seller"));
+        seller.setName(resultSet.getString("Name"));
+        seller.setEmail(resultSet.getString("Email"));
+        seller.setBirthDate(resultSet.getDate("BirthDate"));
+        seller.setBaseSalary(resultSet.getDouble("BaseSalary"));
+        seller.setDepartment(department);
+        return seller;
+    }
+
+    private Department instantiateDepartments(ResultSet resultSet) throws SQLException {
+        Department department = new Department();
+        department.setId(resultSet.getInt("DepartmentId"));
+        department.setName(resultSet.getString("DepName"));
+        return department;
     }
 
     @Override
