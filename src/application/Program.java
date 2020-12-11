@@ -8,6 +8,7 @@ import model.entities.Seller;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.List;
 
 public class Program {
@@ -43,6 +44,11 @@ public class Program {
         for (Seller obj : list){
             System.out.println(obj);
         }
+
+        System.out.println("\n==================== TEST 4: Seller insert ====================");
+        Seller sellerInsert = new Seller(null, "Thiago", "thiago@test.com", new Date(), 6000.0, department);
+        sellerDao.insert(sellerInsert);
+        System.out.println("Inserted! New id = " + sellerInsert.getId());
 
     }
 
