@@ -81,8 +81,24 @@ public class SellerDaoJDBC implements SellerDao {
     }
 
     @Override
-    public void daleteById(Integer id) {
+    public void deleteById(Integer id) {
+        try {
+            PreparedStatement preparedStatement = null;
+            preparedStatement = connection.prepareStatement(
+                    "delete from seller "
+                            + "where Id_Seller = ?"
+            );
 
+            preparedStatement.setInt(1, id);
+            try {
+                findById(id);
+                preparedStatement.executeUpdate();
+            } catch (SQLException e){
+                throw new DbException(e.getMessage());
+            }
+        } catch (SQLException e){
+            throw new DbException(e.getMessage());
+        }
     }
 
     @Override
@@ -102,8 +118,9 @@ public class SellerDaoJDBC implements SellerDao {
                Department department = instantiateDepartments(resultSet);
                Seller seller = instantiateSeller(resultSet, department);
                return seller;
+            } else {
+                throw new DbException("User not found");
             }
-            return null;
 
         } catch (SQLException e) {
             throw new DbException(e.getMessage());

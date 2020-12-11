@@ -8,7 +8,6 @@ import model.entities.Seller;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 import java.util.List;
 
 public class Program {
@@ -45,17 +44,23 @@ public class Program {
             System.out.println(obj);
         }
 
-//        System.out.println("\n==================== TEST 4: Seller insert ====================");
-//        Seller sellerInsert = new Seller(null, "Thiago", "thiago@test.com", new Date(), 6000.0, department);
-//        sellerDao.insert(sellerInsert);
-//        System.out.println("Inserted! New id = " + sellerInsert.getId());
+    /*  System.out.println("\n==================== TEST 4: Seller insert ====================");
+        Seller sellerInsert = new Seller(null, "Thiago", "thiago@test.com", new Date(), 6000.0, department);
+        sellerDao.insert(sellerInsert);
+        System.out.println("Inserted! New id = " + sellerInsert.getId());*/
 
-        System.out.println("\n==================== TEST 5: Seller update ====================");
+      /*  System.out.println("\n==================== TEST 5: Seller update ====================");
         Seller sellerUpdate = new Seller();
         sellerUpdate = sellerDao.findById(7);
         sellerUpdate.setEmail("updateTest@test.com");
         sellerDao.update(sellerUpdate);
-        System.out.println("Update successful");
+        System.out.println("Update successful!");*/
+
+        System.out.println("\n==================== TEST 6: Seller delete ====================");
+        sellerDao.deleteById(7);
+        System.out.println("Delete successful!");
+
+
     }
 
 }
